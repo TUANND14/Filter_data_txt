@@ -8,7 +8,7 @@ class MainWindow(QWidget):
         super().__init__()
         self.setWindowTitle("filter")
 
-        # Khởi tạo các widget
+        # initialized
         self.input_file_path = QLineEdit()
         self.output_file_path = QLineEdit()
         self.filter_text = QPlainTextEdit()
@@ -18,7 +18,7 @@ class MainWindow(QWidget):
         self.table = QPlainTextEdit()
         self.status_label = QLabel("")
 
-        # Thiết lập bố cục
+        # Layer
         layout = QVBoxLayout()
         input_layout = QHBoxLayout()
         output_layout = QHBoxLayout()
@@ -54,14 +54,6 @@ class MainWindow(QWidget):
         self.upload_output_button.clicked.connect(self.upload_output_file)
         self.filter_button.clicked.connect(self.filter_data)
 
-    # def upload_input_file(self):
-    #     options = QFileDialog.Options()
-    #     options |= QFileDialog.DontUseNativeDialog
-    #     file_path, _ = QFileDialog.getOpenFileName(
-    #         self, "File Input", "", "Text Files (*.txt)", options=options
-    #     )
-    #     if file_path:
-    #         self.input_file_path.setText(file_path)
     def upload_input_file(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
@@ -130,7 +122,7 @@ class MainWindow(QWidget):
 
 def write_to_file(content):
     try:
-        with open("ouput.txt", 'w') as file:
+        with open("ouput.txt", 'w') as file:  # fix output data into output.txt
             file.write(content)
         print("Write successful!")
     except Exception as e:
