@@ -102,7 +102,7 @@ class MainWindow(QWidget):
                         text_block += line
                     elif is_in_block:
                         if not line.strip():
-                            result+= text_block
+                            result+= text_block.split('\n')[1] + '\n' + '\n'
                             text_block = ""
                             is_in_block = False
                         text_block += line
@@ -112,7 +112,7 @@ class MainWindow(QWidget):
                         text_block +=line
                         is_in_block = False
             if is_in_block:
-                result+= text_block
+                result+= text_block.split('\n')[1] + '\n' + '\n'
             
             result += "\n"
             self.updateTable(result)
