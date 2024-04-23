@@ -91,12 +91,11 @@ class MainWindow(QWidget):
         result = ""
         text_block = ""
         string_list = string.split()
-        for charecter in string_list:
-            word = rf"\b{charecter.strip()}\b"
-            is_in_block = False
-            with open(file_path, 'r') as data:
-                for line in data:
-                    # if string in line:
+        is_in_block = False
+        with open(file_path, 'r') as data:
+            for line in data:
+                for charecter in string_list:
+                    word = rf"\b{charecter.strip()}\b"
                     if re.search(word, line):
                         is_in_block = True
                         text_block += line
@@ -114,19 +113,21 @@ class MainWindow(QWidget):
             if is_in_block:
                 result+= text_block.split('\n')[1] + '\n' + '\n'
             
-            result += "\n"
-            self.updateTable(result)
-
-        write_to_file(result)
+        result += "\n"
+        self.updateTable(result)
+        self.write_to_file(result)
         
 
-def write_to_file(content):
-    try:
-        with open("ouput.txt", 'w') as file:  # fix output data into output.txt
-            file.write(content)
-        print("Write successful!")
-    except Exception as e:
-        print("Error occurred while writing to file:", str(e))
+    def write_to_file(self,content):
+        path = self.output_file_path.text()
+        if path == "":
+            path = "output.txt"
+        try:
+            with open(path, 'w') as file:  # fix output data into output.txt
+                file.write(content)
+            print("Write successful!")
+        except Exception as e:
+            print("Error occurred while writing to file:", str(e))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
