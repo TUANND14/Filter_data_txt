@@ -90,28 +90,29 @@ class MainWindow(QWidget):
         file_path = self.path_file
         result = ""
         text_block = ""
-        string_list = string.split()
+        string_list = string.split("\n")
         is_in_block = False
         with open(file_path, 'r') as data:
             for line in data:
                 for charecter in string_list:
                     word = rf"\b{charecter.strip()}\b"
+                    check = rf"\b\b"
+                    if word == check:
+                        continue
                     if re.search(word, line):
                         is_in_block = True
-                        text_block += line
-                    elif is_in_block:
+                    elif is_in_block :
                         if not line.strip():
-                            result+= text_block.split('\n')[1] + '\n' + charecter.strip() + '\n' + '\n'
+                            result+= text_block
                             text_block = ""
                             is_in_block = False
-                        text_block += line
                     else:
                         if not line.strip():
                             text_block = ""
-                        text_block +=line
                         is_in_block = False
+                text_block +=line
             if is_in_block:
-                result+= text_block.split('\n')[1] + '\n' + charecter.strip() + '\n' + '\n'
+                result+= text_block
 
         result += "\n"
         self.updateTable(result)
